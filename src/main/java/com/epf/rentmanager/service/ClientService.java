@@ -98,7 +98,6 @@ public class ClientService {
 	private boolean isValidEmail(String email) {
 		// Vérification de la validité de l'adresse email avec une expression régulière
 		String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-
 		return Pattern.compile(emailRegex).matcher(email).matches();
 	}
 }

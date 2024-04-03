@@ -118,8 +118,7 @@ public class VehicleDao {
 	}
 
 	public int count() throws DaoException {
-		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) FROM Vehicle")) {
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) FROM Vehicle")) {
 
 			ResultSet resultSet = ps.executeQuery();
 			if (resultSet.next()) {

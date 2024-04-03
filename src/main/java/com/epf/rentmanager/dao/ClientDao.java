@@ -56,8 +56,7 @@ public class ClientDao {
 
 	public int delete(Client client) throws DaoException {
 
-		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement ps = connection.prepareStatement(DELETE_CLIENT_QUERY)) {
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(DELETE_CLIENT_QUERY)) {
 
 			ps.setInt(1, client.getId());
 			ps.executeUpdate();
@@ -71,10 +70,7 @@ public class ClientDao {
 
 	public Client findById(int id) throws DaoException {
 
-		try {
-
-			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement ps = connection.prepareStatement(FIND_CLIENT_QUERY);
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(FIND_CLIENT_QUERY)){
 
 			ps.setInt(1, id);
 			ResultSet resultSet = ps.executeQuery();
@@ -89,8 +85,6 @@ public class ClientDao {
 					client.setNaissance(resultSet.getDate(5).toLocalDate());
 
 			}
-			ps.close();
-			connection.close();
 
 			return client;
 
@@ -103,9 +97,7 @@ public class ClientDao {
 
 		List<Client> clients = new ArrayList<>();
 
-		try {
-			Connection connection = ConnectionManager.getConnection();
-			PreparedStatement ps = connection.prepareStatement(FIND_CLIENTS_QUERY);
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(FIND_CLIENTS_QUERY)){
 
 			ResultSet resultSet = ps.executeQuery();
 
@@ -120,9 +112,6 @@ public class ClientDao {
 
 			clients.add(client);
 			}
-
-		ps.close();
-		connection.close();
 
 		return clients;
 
