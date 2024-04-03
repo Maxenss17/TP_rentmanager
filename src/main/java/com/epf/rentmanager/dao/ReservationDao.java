@@ -21,6 +21,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ReservationDao {
 //	private static ReservationDao instance = null;
+
+	private ClientDao clientDao;
+	private VehicleDao vehicleDao;
 	private ReservationDao() {}
 
 //	public static ReservationDao getInstance() {
@@ -29,8 +32,6 @@ public class ReservationDao {
 //		}
 //		return instance;
 //	}
-	private ClientDao clientDao;
-	private VehicleDao vehicleDao;
 
 	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
@@ -41,12 +42,13 @@ public class ReservationDao {
 
 	public int create(Reservation reservation) throws DaoException {
 
-		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS)){
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
-			ps.setInt(1, reservation.getClient().getId());
-			ps.setInt(2, reservation.getVehicle().getId());
+			ps.setInt(1, (reservation.getClient()).getId());
+			ps.setInt(2, (reservation.getVehicle()).getId());
 			ps.setDate(3, java.sql.Date.valueOf(reservation.getDebut()));
 			ps.setDate(4, java.sql.Date.valueOf(reservation.getFin()));
+
 			ps.executeUpdate();
 			ResultSet resultSet = ps.getGeneratedKeys();
 
@@ -61,7 +63,6 @@ public class ReservationDao {
 			throw new DaoException();
 		}
 	}
-
 	public int delete(Reservation reservation) throws DaoException {
 
 		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(DELETE_RESERVATION_QUERY)) {
@@ -103,7 +104,6 @@ public class ReservationDao {
 		}
 	}
 
-	
 	public List<Reservation> findResaByVehicleId(int vehicleId) throws DaoException {
 
 		List<Reservation> reservations = new ArrayList<>();
