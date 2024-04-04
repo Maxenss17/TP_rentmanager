@@ -1,6 +1,7 @@
 package com.ensta.rentmanager;
 
 import com.epf.rentmanager.dao.ClientDao;
+import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.except.DaoException;
 import com.epf.rentmanager.except.ServiceException;
 import com.epf.rentmanager.model.Client;
@@ -15,13 +16,16 @@ import static org.mockito.Mockito.*;
 
 public class ClientServiceTest {
     private ClientDao clientDaoMock;
+    private ReservationDao reservationDaoMock;
+
     private ClientService clientService;
 
     @BeforeEach
     public void setUp() {
 
         clientDaoMock = mock(ClientDao.class);
-        clientService = new ClientService(clientDaoMock);
+        reservationDaoMock = mock(ReservationDao.class);
+        clientService = new ClientService(clientDaoMock, reservationDaoMock);
     }
     @Test
     public void testCreateClient() throws DaoException, ServiceException {

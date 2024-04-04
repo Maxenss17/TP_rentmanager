@@ -1,5 +1,6 @@
 package com.ensta.rentmanager;
 
+import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.dao.VehicleDao;
 import com.epf.rentmanager.except.DaoException;
 import com.epf.rentmanager.except.ServiceException;
@@ -21,12 +22,15 @@ public class VehicleServiceTest {
 
     private VehicleDao vehicleDaoMock;
     private VehicleService vehicleService;
+    private ReservationDao reservationDaoMock;
+
 
     @BeforeEach
     public void setUp() {
 
         vehicleDaoMock = mock(VehicleDao.class);
-        vehicleService = new VehicleService(vehicleDaoMock);
+        reservationDaoMock = mock(ReservationDao.class);
+        vehicleService = new VehicleService(vehicleDaoMock, reservationDaoMock);
     }
 
     @Test
