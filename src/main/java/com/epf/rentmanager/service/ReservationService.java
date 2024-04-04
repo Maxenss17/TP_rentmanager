@@ -66,6 +66,7 @@ public class ReservationService {
         try {
             return reservationDao.findAll();
         } catch (DaoException e) {
+            e.printStackTrace();
             throw new ServiceException("Aucune réservation trouvée.");
         }
     }

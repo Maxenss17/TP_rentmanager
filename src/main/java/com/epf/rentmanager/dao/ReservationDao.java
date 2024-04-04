@@ -44,8 +44,8 @@ public class ReservationDao {
 
 		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 
-			ps.setInt(1, (reservation.getClient()).getId());
-			ps.setInt(2, (reservation.getVehicle()).getId());
+			ps.setInt(1, (reservation.getClient_id()));
+			ps.setInt(2, (reservation.getVehicle_id()));
 			ps.setDate(3, java.sql.Date.valueOf(reservation.getDebut()));
 			ps.setDate(4, java.sql.Date.valueOf(reservation.getFin()));
 
@@ -90,10 +90,10 @@ public class ReservationDao {
 
 				Reservation reservation = new Reservation();
 				reservation.setId(resultSet.getInt(1));
-				reservation.setVehicle(vehicleDao.findById(resultSet.getInt(2)));
+				reservation.setClient_id(clientId);
+				reservation.setVehicle_id(resultSet.getInt(2));
 				reservation.setDebut(resultSet.getDate(3).toLocalDate());
 				reservation.setFin(resultSet.getDate(4).toLocalDate());
-
 				reservations.add(reservation);
 			}
 
@@ -117,7 +117,8 @@ public class ReservationDao {
 
 				Reservation reservation = new Reservation();
 				reservation.setId(resultSet.getInt(1));
-				reservation.setClient(clientDao.findById(resultSet.getInt(2)));
+				reservation.setClient_id(resultSet.getInt(2));
+				reservation.setVehicle_id(vehicleId);
 				reservation.setDebut(resultSet.getDate(3).toLocalDate());
 				reservation.setFin(resultSet.getDate(4).toLocalDate());
 
@@ -135,7 +136,7 @@ public class ReservationDao {
 
 		List<Reservation> reservations = new ArrayList<>();
 
-		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(FIND_RESERVATIONS_BY_VEHICLE_QUERY)) {
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(FIND_RESERVATIONS_QUERY)) {
 
 			ResultSet resultSet = ps.executeQuery();
 
@@ -143,8 +144,8 @@ public class ReservationDao {
 
 				Reservation reservation = new Reservation();
 				reservation.setId(resultSet.getInt(1));
-				reservation.setClient(clientDao.findById(resultSet.getInt(2)));
-				reservation.setVehicle(vehicleDao.findById(resultSet.getInt(3)));
+				reservation.setClient_id(resultSet.getInt(2));
+				reservation.setVehicle_id(resultSet.getInt(3));
 				reservation.setDebut(resultSet.getDate(4).toLocalDate());
 				reservation.setFin(resultSet.getDate(5).toLocalDate());
 
@@ -154,6 +155,7 @@ public class ReservationDao {
 			return reservations;
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException();
 		}
 

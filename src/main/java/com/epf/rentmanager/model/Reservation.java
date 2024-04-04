@@ -4,18 +4,18 @@ import java.time.LocalDate;
 public class Reservation {
 
     private int id;
-    private Client client;
-    private Vehicle vehicle;
+    private int client_id;
+    private int vehicle_id;
     private LocalDate debut;
     private LocalDate fin;
 
     public Reservation() {}
 
-    public Reservation(int id, Client client, Vehicle vehicle, LocalDate debut, LocalDate fin) {
+    public Reservation(int id, int client_id, int vehicle_id, LocalDate debut, LocalDate fin) {
 
         this.id = id;
-        this.client = client;
-        this.vehicle = vehicle;
+        this.client_id = client_id;
+        this.vehicle_id = vehicle_id;
         this.debut = debut;
         this.fin = fin;
     }
@@ -25,12 +25,11 @@ public class Reservation {
         return id;
     }
 
-    public Client getClient() {
-        return client;
+    public int getClient_id() {
+        return client_id;
     }
-
-    public Vehicle getVehicle() {
-        return vehicle;
+    public int getVehicle_id() {
+        return vehicle_id;
     }
     public LocalDate getDebut() {
         return debut;
@@ -44,12 +43,12 @@ public class Reservation {
         this.id = id;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
+    public void setVehicle_id(int vehicle_id) {
+        this.vehicle_id = vehicle_id;
     }
     public void setDebut(LocalDate debut) {
         this.debut = debut;
@@ -61,8 +60,8 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{id=" + id +
-                ", client_id ='" + client + '\'' +
-                ", vehicle_id ='" + vehicle + '\'' +
+                ", client_id ='" + client_id + '\'' +
+                ", vehicle_id ='" + vehicle_id + '\'' +
                 ", date de début ='" + debut + '\'' +
                 ", date de fin =" + fin +
                 '}';

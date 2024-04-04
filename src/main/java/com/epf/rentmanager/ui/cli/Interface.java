@@ -123,9 +123,14 @@ public class Interface {
     }
 
     private static void manageReservations() throws ServiceException {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nGestion des réservations :");
         System.out.println("1. Créer une réservation");
+        System.out.println("2. Lister toutes les réservations");
+        System.out.println("3. Lister toutes les réservations associées à un client donné");
+        System.out.println("4. Lister toutes les réservations associées à un véhicule donné");
+        System.out.println("5. Supprimer une réservation");
         System.out.println("0. Retour au menu principal");
 
         int choice = Integer.parseInt(scanner.nextLine());
@@ -136,6 +141,19 @@ public class Interface {
             case 1:
                 createReservation();
                 break;
+            case 2:
+                listAllReservations();
+                break;
+            case 3:
+                listReservationsByClientId();
+                break;
+            case 4:
+                listReservationsByVehicleId();
+                break;
+            case 5:
+                deleteReservation();
+                break;
+
             default:
                 System.out.println("\nChoix invalide. Veuillez choisir parmi les options proposées.");
                 break;
@@ -319,23 +337,26 @@ public class Interface {
 
         System.out.println("\nCréation d'une nouvelle réservation :");
 
+        System.out.print("\n");
         listClients();
 
         System.out.print("\nQuel est votre id client ? : ");
         int id_clt = Integer.parseInt(scanner.nextLine());
         Client client_res = clientService.findById(id_clt);
-        System.out.print(client_res);
+        System.out.print("\nClient choisi : " + client_res);
 
+        System.out.print("\n");
         listVehicles();
 
         System.out.print("\nQuel est l'id de votre véhicule ? : ");
         int id_vhl = Integer.parseInt(scanner.nextLine());
+
         Vehicle vehicle_res = vehicleService.findById(id_vhl);
-        System.out.print(vehicle_res);
+        System.out.print("\nVéhicule choisi : " + vehicle_res);
 
-        System.out.print("\nIndiquez les dates correspondantes à votre réservation : ");
+        System.out.print("\n\nIndiquez les dates correspondantes à votre réservation : ");
 
-        System.out.print("\nDate de début (YYYY/MM/DD) : ");
+        System.out.print("\n\nDate de début (YYYY/MM/DD) : ");
         String debutString;
         LocalDate debut;
 
@@ -364,14 +385,108 @@ public class Interface {
 
         Reservation newReservation = new Reservation();
 
-        newReservation.setClient(client_res);
-        newReservation.setVehicle(vehicle_res);
+        newReservation.setClient_id(id_clt);
+        newReservation.setVehicle_id(id_vhl);
         newReservation.setDebut(debut);
         newReservation.setFin(fin);
 
         long new_reservation = reservationService.create(newReservation);
-        System.out.println("\n Une nouvelle réservation a été créé : " + new_reservation);
+        System.out.println("\nUne nouvelle réservation a été créé : " + new_reservation);
 
+    }
+
+    public static void listAllReservations() {
+
+        try {
+
+            List<Reservation> reservations = reservationService.findAll();
+            if (reservations.isEmpty()) {
+                System.out.println("\nAucune réservation trouvée.");
+            } else {
+                System.out.println("\nListe de toutes les réservations :");
+                for (Reservation reservation : reservations) {
+                    System.out.println(reservation);
+                }
+            }
+        } catch (ServiceException e) {
+            System.out.println("\nErreur lors de la récupération de la liste des réservations : " + e.getMessage());
+        }
+    }
+
+    public static void listReservationsByClientId() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nListe des réservations associées à un client donné :");
+
+        listClients();
+
+        System.out.print("\nEntrez l'ID du client : ");
+
+        int clientId = Integer.parseInt(scanner.nextLine());
+
+        try {
+
+            List<Reservation> reservations = reservationService.findResaByClientId(clientId);
+
+            if (reservations.isEmpty()) {
+                System.out.println("\nAucune réservation trouvée pour ce client.");
+            } else {
+                System.out.println("\nListe des réservations pour le client avec l'ID " + clientId + " :");
+                for (Reservation reservation : reservations) {
+                    System.out.println(reservation);
+                }
+            }
+        } catch (ServiceException e) {
+            System.out.println("\nErreur lors de la récupération des réservations : " + e.getMessage());
+        }
+    }
+
+    public static void listReservationsByVehicleId() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nListe des réservations associées à un véhicule donné :");
+
+        listVehicles();
+
+        System.out.print("\nEntrez l'ID du véhicule : ");
+        int vehicleId = Integer.parseInt(scanner.nextLine());
+
+        try {
+
+            List<Reservation> reservations = reservationService.findResaByVehicleId(vehicleId);
+
+            if (reservations.isEmpty()) {
+                System.out.println("\nAucune réservation trouvée pour ce véhicule.");
+            } else {
+                System.out.println("\nListe des réservations pour le véhicule avec l'ID " + vehicleId + " :");
+                for (Reservation reservation : reservations) {
+                    System.out.println(reservation);
+                }
+            }
+        } catch (ServiceException e) {
+            System.out.println("\nErreur lors de la récupération des réservations : " + e.getMessage());
+        }
+    }
+
+    public static void deleteReservation() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nSuppression d'une réservation :");
+
+        listAllReservations();
+
+        System.out.print("\nEntrez l'ID de la réservation à supprimer : ");
+        int reservationId = Integer.parseInt(scanner.nextLine());
+
+        try {
+
+            Reservation reservationToDelete = new Reservation();
+            reservationToDelete.setId(reservationId);
+            int id_deleted = reservationService.delete(reservationToDelete);
+            System.out.println("\nLa réservation a été supprimée avec succès, son ancien ID est : " + id_deleted);
+        } catch (ServiceException e) {
+            System.out.println("\nErreur lors de la suppression de la réservation : " + e.getMessage());
+        }
     }
 }
 

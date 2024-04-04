@@ -70,8 +70,11 @@ public class ClientService {
 	public Client findById(int id) throws ServiceException {
 
 		try {
+
 			return clientDao.findById(id);
+
 		} catch (DaoException e) {
+			e.printStackTrace();
 			throw new ServiceException("Aucun client trouvé." + e.getMessage());
 		}
 

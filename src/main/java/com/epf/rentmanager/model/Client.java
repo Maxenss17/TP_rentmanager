@@ -13,7 +13,6 @@ public class Client {
     public Client() {}
     // Constructeur paramétré
     public Client(int id, String nom, String prenom, String email, LocalDate naissance) {
-
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -31,7 +30,6 @@ public class Client {
     public String getPrenom() {
         return prenom;
     }
-
     public String getEmail() {
         return email;
     }

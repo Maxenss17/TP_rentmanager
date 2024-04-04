@@ -70,28 +70,30 @@ public class ClientDao {
 
 	public Client findById(int id) throws DaoException {
 
-		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(FIND_CLIENT_QUERY)){
+		Client client = new Client();
+
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(FIND_CLIENT_QUERY)) {
 
 			ps.setInt(1, id);
-			ResultSet resultSet = ps.executeQuery();
+			ResultSet resultset = ps.executeQuery();
 
-			Client client = new Client();
+			if (resultset.next()){
 
-			if (resultSet.next()) {
+				client.setId(id);
+				client.setNom(resultset.getString(1));
+				client.setPrenom(resultset.getString(2));
+				client.setEmail(resultset.getString(3));
+				client.setNaissance(resultset.getDate(4).toLocalDate());
 
-					client.setNom(resultSet.getString(2));
-					client.setPrenom(resultSet.getString(3));
-					client.setEmail(resultSet.getString(4));
-					client.setNaissance(resultSet.getDate(5).toLocalDate());
-
+			} else {
+				throw new DaoException("Le client recherché n'existe pas.");
 			}
-
-			return client;
-
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException();
 		}
-    }
+		return client;
+	}
 
 	public List<Client> findAll() throws DaoException {
 
