@@ -29,23 +29,30 @@
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="last_name" class="col-sm-2 control-label">Nom</label>
-
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nom">
+                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nom" required>
+                                        <span id="last_name_error" class="text-danger">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="first_name" class="col-sm-2 control-label">Prenom</label>
-
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Prenom">
+                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Prenom" required>
+                                        <span id="first_name_error" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">Email</label>
-
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" required>
+                                        <span id="email_error" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="birth_date" class="col-sm-2 control-label">Date de naissance</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="birth_date" name="birth_date" placeholder="Date de naissance" required>
+                                        <span id="birthdate_error" class="text-danger"></span> <!-- Error message -->
                                     </div>
                                 </div>
                             </div>
@@ -53,6 +60,7 @@
                             <div class="box-footer">
                                 <button type="submit" class="btn btn-info pull-right">Ajouter</button>
                             </div>
+                            <!-- /.box-footer -->
                             <!-- /.box-footer -->
                         </form>
                     </div>

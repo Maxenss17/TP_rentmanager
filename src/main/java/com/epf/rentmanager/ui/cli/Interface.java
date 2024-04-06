@@ -486,6 +486,7 @@ public class Interface {
             System.out.println("\nLa réservation a été supprimée avec succès, son ancien ID est : " + id_deleted);
         } catch (ServiceException e) {
             System.out.println("\nErreur lors de la suppression de la réservation : " + e.getMessage());
+
         }
     }
 }

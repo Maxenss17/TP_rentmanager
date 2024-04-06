@@ -31,13 +31,14 @@
                                     <th>Nom</th>
                                     <th>Prenom</th>
                                     <th>Email</th>
-                                    <th>Action</th>
+                                    <th>Naisssance</th>
                                 </tr>
                                 <tr>
                                     <td>1.</td>
                                     <td>John</td>
                                     <td>Doe</td>
                                     <td>john.doe@epf.fr</td>
+                                    <td>2002/01/01</td>
                                     <td>
                                         <a class="btn btn-primary" href="${pageContext.request.contextPath}/users/details?id=1">
                                         <i class="fa fa-play"></i>
@@ -56,6 +57,7 @@
                                     <td>Jane</td>
                                     <td>Doe</td>
                                     <td>jane.doe@epf.fr</td>
+                                    <td>2002/01/01</td>
                                     <td>
                                         <a class="btn btn-primary" href="${pageContext.request.contextPath}/users/details?id=2">
                                             <i class="fa fa-play"></i>
