@@ -51,6 +51,7 @@ public class ClientDao {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException();
 		}
     }
@@ -65,6 +66,7 @@ public class ClientDao {
 			return client.getId();
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException("Erreur lors de la suppression du client.");
 		}
 	}
@@ -134,13 +136,13 @@ public class ClientDao {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException("Erreur lors du comptage des clients.");
 		}
 	}
 
 	public int edit(Client client, int id) throws DaoException {
-		try(Connection connection = ConnectionManager.getConnection()) {
-			PreparedStatement ps = connection.prepareStatement(EDIT_CLIENT_QUERY);
+		try(Connection connection = ConnectionManager.getConnection() ;PreparedStatement ps = connection.prepareStatement(EDIT_CLIENT_QUERY)) {
 
 			ps.setString(1, client.getNom());
 			ps.setString(2, client.getPrenom());

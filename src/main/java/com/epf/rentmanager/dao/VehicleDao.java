@@ -60,8 +60,7 @@ public class VehicleDao {
 
 	public int delete(Vehicle vehicle) throws DaoException {
 
-		try (Connection connection = ConnectionManager.getConnection();
-			 PreparedStatement ps = connection.prepareStatement(DELETE_VEHICLE_QUERY)) {
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(DELETE_VEHICLE_QUERY)) {
 
 			ps.setInt(1, vehicle.getId());
 			ps.executeUpdate();
@@ -69,6 +68,7 @@ public class VehicleDao {
 			return vehicle.getId();
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException("Erreur lors de la suppression du client.");
 		}
 	}
@@ -94,6 +94,7 @@ public class VehicleDao {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException();
 		}
 		return vehicle;
@@ -121,6 +122,7 @@ public class VehicleDao {
 			return vehicles;
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException();
 		}
 	}
@@ -136,13 +138,13 @@ public class VehicleDao {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException("Erreur lors du comptage des véhicules.");
 		}
 	}
 
 	public int edit(Vehicle vehicle, int id) throws DaoException {
-		try(Connection connection = ConnectionManager.getConnection()) {
-			PreparedStatement ps = connection.prepareStatement(EDIT_VEHICLE_QUERY);
+		try(Connection connection = ConnectionManager.getConnection() ;PreparedStatement ps = connection.prepareStatement(EDIT_VEHICLE_QUERY)) {
 
 			ps.setString(1, vehicle.getConstructeur().toUpperCase());
 			ps.setString(2, vehicle.getModele());

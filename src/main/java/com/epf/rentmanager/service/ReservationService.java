@@ -39,6 +39,7 @@ public class ReservationService {
     }
 
     public boolean isVehicleAlreadyReserved(int reservationVehicleId, LocalDate dateDebut, LocalDate dateFin) throws ServiceException {
+
         try {
             List<Reservation> allVehicleReservations = reservationDao.findResaByVehicleId(reservationVehicleId);
             for (Reservation reservation : allVehicleReservations) {
@@ -65,6 +66,7 @@ public class ReservationService {
     }
 
     public int delete(Reservation reservation) throws ServiceException {
+
         try {
             return reservationDao.delete(reservation);
         } catch (DaoException e) {
@@ -73,6 +75,7 @@ public class ReservationService {
     }
 
     public List<Reservation> findResaByClientId(int clientId) throws ServiceException {
+
         try {
             return reservationDao.findResaByClientId(clientId);
         } catch (DaoException e) {
@@ -81,6 +84,7 @@ public class ReservationService {
     }
 
     public List<Reservation> findResaByVehicleId(int vehicleId) throws ServiceException {
+
         try {
             return reservationDao.findResaByVehicleId(vehicleId);
         } catch (DaoException e) {
@@ -89,6 +93,7 @@ public class ReservationService {
     }
 
     public List<Reservation> findAll() throws ServiceException {
+
         try {
             return reservationDao.findAll();
         } catch (DaoException e) {
@@ -107,6 +112,7 @@ public class ReservationService {
     }
 
     public int count() throws ServiceException {
+
         try {
             return reservationDao.count();
         } catch (DaoException e) {
@@ -115,6 +121,7 @@ public class ReservationService {
     }
 
     public int edit(Reservation reservation, int id) throws ServiceException {
+
         try {
             return reservationDao.edit(reservation, id);
         } catch (DaoException e) {

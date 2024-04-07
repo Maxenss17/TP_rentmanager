@@ -76,6 +76,7 @@ public class ReservationDao {
 			return reservation.getId();
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException("Erreur lors de la suppression du client.");
 		}
 	}
@@ -103,6 +104,7 @@ public class ReservationDao {
 			return reservations;
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
@@ -131,6 +133,7 @@ public class ReservationDao {
 				return reservations;
 
 			} catch (SQLException e) {
+				e.printStackTrace();
 				throw new DaoException();
 			}
 		}
@@ -172,6 +175,7 @@ public class ReservationDao {
 			ps.executeUpdate();
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException();
 		}
 	}
@@ -217,13 +221,13 @@ public class ReservationDao {
 			}
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DaoException("Erreur lors du comptage des réservations.");
 		}
 	}
 
 	public int edit(Reservation reservation, int id) throws DaoException {
-		try(Connection connection = ConnectionManager.getConnection()) {
-			PreparedStatement ps = connection.prepareStatement(EDIT_RESERVATION_QUERY);
+		try(Connection connection = ConnectionManager.getConnection() ;PreparedStatement ps = connection.prepareStatement(EDIT_RESERVATION_QUERY)) {
 
 			ps.setInt(1, (reservation.getClient_id()));
 			ps.setInt(2, (reservation.getVehicle_id()));

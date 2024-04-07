@@ -36,14 +36,10 @@ public class ClientService {
 	public int create(Client client) throws ServiceException {
 
 		try {
-
 			String nom = client.getNom();
-
 			client.setNom(nom.toUpperCase());
 			return clientDao.create(client);
-
 		} catch (DaoException e) {
-
 			throw new ServiceException("Impossible de créer un nouveau client. : " + e.getMessage());
 		}
 	}
@@ -70,19 +66,15 @@ public class ClientService {
 	public int delete(Client client) throws ServiceException {
 
 		try {
-
 			List<Reservation> reservations = reservationDao.findResaByClientId(client.getId());
 			if (!reservations.isEmpty()) {
-
 				for (Reservation reservation : reservations) {
 					reservationDao.delete(reservation);
 				}
 			}
-
 		} catch (DaoException e) {
 			throw new ServiceException();
 		}
-
 		try {
 			return clientDao.delete(client);
 		} catch (DaoException e) {
@@ -90,10 +82,9 @@ public class ClientService {
 		}
 	}
 
-	// Fonction qu'on utilise dans la jsp.
 	public boolean isEmailAlreadyUsed(String email) throws ServiceException {
-		try {
 
+		try {
 			List<Client> clients = clientDao.findAll();
 			for (Client existingClient : clients) {
 				if (existingClient.getEmail().equalsIgnoreCase(email)) {
@@ -101,13 +92,13 @@ public class ClientService {
 				}
 			}
 			return false;
-
 		} catch (DaoException e) {
 			throw new ServiceException("Impossible de vérifier l'adresse e-mail du client.");
 		}
 	}
 
 	public int count() throws ServiceException {
+
 		try {
 			return clientDao.count();
 		} catch (DaoException e) {
@@ -116,6 +107,7 @@ public class ClientService {
 	}
 
 	public int edit(Client client, int id) throws ServiceException {
+
 		try {
 			return clientDao.edit(client, id);
 		} catch (DaoException e) {
@@ -123,7 +115,6 @@ public class ClientService {
 			throw new ServiceException("Aucun client trouvé." + e.getMessage());
 		}
 	}
-
 }
 
 

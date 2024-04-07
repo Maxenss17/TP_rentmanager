@@ -9,7 +9,6 @@ public class ConnectionManager {
 	private static final String DB_CONNECTION = "jdbc:h2:~/RentManagerDatabase";
 	private static final String DB_USER = "";
 	private static final String DB_PASSWORD = "";
-
 	private static JdbcDataSource datasource = null;
 
 	private static void init() {

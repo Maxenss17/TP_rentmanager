@@ -34,7 +34,9 @@ public class ClientCreateServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         try {
+
             String nom = request.getParameter("last_name");
             String prenom = request.getParameter("first_name");
             String email = request.getParameter("email");

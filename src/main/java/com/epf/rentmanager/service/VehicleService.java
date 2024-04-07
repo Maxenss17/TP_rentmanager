@@ -21,6 +21,7 @@ public class VehicleService {
 
 	@Autowired
 	public VehicleService(VehicleDao vehicleDao, ReservationDao reservationDao) {
+
 		this.vehicleDao = vehicleDao;
 		this.reservationDao = reservationDao;
 	}
@@ -54,6 +55,7 @@ public class VehicleService {
 	}
 
 	public List<Vehicle> findAll() throws ServiceException {
+
 		try {
 			return vehicleDao.findAll();
 		} catch (DaoException e) {
@@ -85,6 +87,7 @@ public class VehicleService {
 	}
 
 	public int count() throws ServiceException {
+
 		try {
 			return vehicleDao.count();
 		} catch (DaoException e) {
@@ -93,6 +96,7 @@ public class VehicleService {
 	}
 
 	public int edit(Vehicle vehicle, int id) throws ServiceException {
+
 		try {
 			return vehicleDao.edit(vehicle, id);
 		} catch (DaoException e) {

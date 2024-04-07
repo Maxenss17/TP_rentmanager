@@ -3,7 +3,6 @@ package com.epf.rentmanager.model;
 public class Vehicle {
     private int id;
     private String constructeur;
-
     private String modele;
     private int nb_places;
     public Vehicle() {}
