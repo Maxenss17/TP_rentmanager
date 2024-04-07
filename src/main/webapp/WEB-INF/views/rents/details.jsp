@@ -20,14 +20,14 @@
                     <!-- Profile Image -->
                     <div class="box box-primary">
                         <div class="box-body box-profile">
-                            <h3 class="profile-username text-center">${user.getNom()} ${user.getPrenom()}</h3>
+                            <h3 class="profile-username text-center">${rent.getDebut()} ${rent.getFin()}</h3>
 
                             <ul class="list-group list-group-unbordered">
                                 <li class="list-group-item">
-                                    <b>Reservation(s)</b> <a class="pull-right">${rents.size()}</a>
+                                    <b>Clients(s)</b> <a class="pull-right">${user.nom}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Voiture(s)</b> <a class="pull-right">${vehicles.size()}</a>
+                                    <b>Voiture(s)</b> <a class="pull-right">${vehicle.constructeur}</a>
                                 </li>
                             </ul>
                         </div>
@@ -39,34 +39,32 @@
                 <div class="col-md-9">
                     <div class="nav-tabs-custom">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#rents" data-toggle="tab">Reservations</a></li>
-                            <li><a href="#cars" data-toggle="tab">Voitures</a></li>
+                            <li class="active"><a href="#user" data-toggle="tab">Clients</a></li>
+                            <li><a href="#car" data-toggle="tab">Voitures</a></li>
                         </ul>
                         <div class="tab-content">
-                            <div class="active tab-pane" id="rents">
+                            <div class="active tab-pane" id="user">
                                 <div class="box-body no-padding">
                                     <table class="table table-striped">
                                         <tr>
                                             <th style="width: 10px">#</th>
-                                            <th>Client</th>
-                                            <th>Voiture</th>
-                                            <th>Date de debut</th>
-                                            <th>Date de fin</th>
+                                            <th>Nom</th>
+                                            <th>Prenom</th>
+                                            <th>Email</th>
+                                            <th>Date de Naissance</th>
                                         </tr>
                                         <tr>
-                                        <c:forEach items="${rents}" var="rent">
-                                            <td>${rent.id}</td>
-                                            <td>${rent.client_id}</td>
-                                            <td>${rent.vehicle_id}</td>
-                                            <td>${rent.debut}</td>
-                                            <td>${rent.fin}</td>
+                                            <td>${user.id}.</td>
+                                            <td>${user.nom}</td>
+                                            <td>${user.prenom}</td>
+                                            <td>${user.email}</td>
+                                            <td>${user.naissance}</td>
                                         </tr>
-                                        </c:forEach>
                                     </table>
                                 </div>
                             </div>
                             <!-- /.tab-pane -->
-                            <div class="tab-pane" id="cars">
+                            <div class="tab-pane" id="car">
                                 <!-- /.box-header -->
                                 <div class="box-body no-padding">
                                     <table class="table table-striped">
@@ -76,14 +74,12 @@
                                             <th>Constructeur</th>
                                             <th>Nombre de places</th>
                                         </tr>
-                                        </tr>
-                                        <c:forEach items="${vehicles}" var="vehicle">
+                                        <tr>
                                             <td>${vehicle.id}.</td>
                                             <td>${vehicle.constructeur}</td>
                                             <td>${vehicle.modele}</td>
                                             <td>${vehicle.nb_places}</td>
                                             </tr>
-                                        </c:forEach>
                                     </table>
                                 </div>
                             </div>

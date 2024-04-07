@@ -43,7 +43,7 @@
                                         <td>${rent.debut}</td>
                                         <td>${rent.fin}</td>
                                         <td>
-                                            <a class="btn btn-primary disabled" href="rent-detail.html">
+                                            <a class="btn btn-primary" href="${pageContext.request.contextPath}/rents/details?id=${rent.id}&client_id=${rent.client_id}&vehicle_id=${rent.vehicle_id}">
                                                 <i class="fa fa-play"></i>
                                             </a>
                                             <a class="btn btn-success" href="${pageContext.request.contextPath}/rents/edit?id=${rent.id}">

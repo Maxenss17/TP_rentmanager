@@ -1,3 +1,4 @@
+C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Client\ClientDetailsServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Vehicle\VehicleCreateServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Vehicle\VehicleEditServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\model\Vehicle.java
@@ -12,12 +13,14 @@ C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\ma
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\persistence\FillDatabase.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Vehicle\VehicleListServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ClientDao.java
+C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Vehicle\VehicleDetailsServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Reservation\ReservationDeleteServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Reservation\ReservationEditServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Client\ClientListServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ReservationDao.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Reservation\ReservationCreateServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\main.java
+C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Reservation\ReservationDetailsServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\Vehicle\VehicleDeleteServlet.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ReservationService.java
 C:\Users\yanga\Documents\EPF\java\rentmanager (2)\rentmanager\rentmanager\src\main\java\com\epf\rentmanager\utils\IOUtils.java
