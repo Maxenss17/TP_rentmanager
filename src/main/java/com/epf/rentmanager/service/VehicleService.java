@@ -91,4 +91,13 @@ public class VehicleService {
 			throw new ServiceException("Aucun véhicule trouvé." + e.getMessage());
 		}
 	}
+
+	public int edit(Vehicle vehicle, int id) throws ServiceException {
+		try {
+			return vehicleDao.edit(vehicle, id);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new ServiceException("Aucun véhicule trouvé." + e.getMessage());
+		}
+	}
 }

@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.epf.rentmanager.model.Reservation;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.except.DaoException;
 
@@ -31,7 +33,9 @@ public class VehicleDao {
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
-	
+	private static final String EDIT_VEHICLE_QUERY = "UPDATE Vehicle SET constructeur=?, modele=?, nb_places=? WHERE id=?;";
+
+
 	public int create(Vehicle vehicle) throws DaoException {
 
 		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(CREATE_VEHICLE_QUERY, Statement.RETURN_GENERATED_KEYS)){
@@ -134,6 +138,24 @@ public class VehicleDao {
 		} catch (SQLException e) {
 			throw new DaoException("Erreur lors du comptage des véhicules.");
 		}
+	}
+
+	public int edit(Vehicle vehicle, int id) throws DaoException {
+		try(Connection connection = ConnectionManager.getConnection()) {
+			PreparedStatement ps = connection.prepareStatement(EDIT_VEHICLE_QUERY);
+
+			ps.setString(1, vehicle.getConstructeur().toUpperCase());
+			ps.setString(2, vehicle.getModele());
+			ps.setInt(3, vehicle.getNb_places());
+			ps.setInt(4, id);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Erreur lors de la modification du véhicule");
+		}
+		return vehicle.getId();
 	}
 
 }

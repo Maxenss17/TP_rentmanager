@@ -5,6 +5,7 @@ import com.epf.rentmanager.dao.VehicleDao;
 import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.except.DaoException;
 import com.epf.rentmanager.except.ServiceException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
 
 import java.time.LocalDate;
@@ -113,4 +114,32 @@ public class ReservationService {
             throw new ServiceException("Aucune réservation trouvée.");
         }
     }
+
+    public Reservation findById(int id) throws ServiceException {
+
+        try {
+            return reservationDao.findById(id);
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new ServiceException("Aucune réservation trouvée." + e.getMessage());
+        }
+    }
+
+    public int count() throws ServiceException {
+        try {
+            return reservationDao.count();
+        } catch (DaoException e) {
+            throw new ServiceException("Aucune réservation trouvée." + e.getMessage());
+        }
+    }
+
+    public int edit(Reservation reservation, int id) throws ServiceException {
+        try {
+            return reservationDao.edit(reservation, id);
+        } catch (DaoException e) {
+            e.printStackTrace();
+            throw new ServiceException("Aucune réservation trouvée." + e.getMessage());
+        }
+    }
+
 }

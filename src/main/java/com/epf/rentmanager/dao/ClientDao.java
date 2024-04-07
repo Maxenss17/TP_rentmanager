@@ -31,7 +31,8 @@ public class ClientDao {
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
 	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
-	
+	private static final String EDIT_CLIENT_QUERY = "UPDATE Client SET nom=?, prenom=?, email=? , naissance=? WHERE id=?;";
+
 	public int create(Client client) throws DaoException {
 
 		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(CREATE_CLIENT_QUERY, Statement.RETURN_GENERATED_KEYS)){
@@ -121,4 +122,42 @@ public class ClientDao {
 			throw new DaoException();
 		}
 	}
+
+	public int count() throws DaoException {
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) FROM Client")) {
+
+			ResultSet resultSet = ps.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getInt(1);
+			} else {
+				throw new DaoException("Erreur lors du comptage des clients.");
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException("Erreur lors du comptage des clients.");
+		}
+	}
+
+	public int edit(Client client, int id) throws DaoException {
+		try(Connection connection = ConnectionManager.getConnection()) {
+			PreparedStatement ps = connection.prepareStatement(EDIT_CLIENT_QUERY);
+
+			ps.setString(1, client.getNom());
+			ps.setString(2, client.getPrenom());
+			ps.setString(3, client.getEmail());
+			ps.setDate(4, java.sql.Date.valueOf(client.getNaissance()));
+			ps.setInt(5, id);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Erreur lors de la modification du client");
+		}
+		return client.getId();
+	}
+
 }
+
+
+

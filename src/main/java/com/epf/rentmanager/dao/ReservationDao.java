@@ -39,6 +39,9 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 	private static final String SET_VEHICLE_ID_NULL_QUERY = "UPDATE Reservation SET vehicle_id = null WHERE vehicle_id=?;";
+	private static final String FIND_RESERVATION_QUERY = "SELECT client_id, vehicle_id, debut, fin FROM Reservation WHERE id=?;";
+	private static final String EDIT_RESERVATION_QUERY = "UPDATE Reservation SET client_id=?, vehicle_id=?, debut=? , fin=? WHERE id=?;";
+
 
 	public int create(Reservation reservation) throws DaoException {
 
@@ -172,4 +175,69 @@ public class ReservationDao {
 			throw new DaoException();
 		}
 	}
+
+	public Reservation findById(int id) throws DaoException {
+
+		Reservation reservation = new Reservation();
+
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement(FIND_RESERVATION_QUERY)) {
+
+			ps.setInt(1, id);
+			ResultSet resultSet = ps.executeQuery();
+
+			if (resultSet.next()){
+
+				reservation.setId(id);
+				reservation.setClient_id(resultSet.getInt(1));
+				reservation.setVehicle_id(resultSet.getInt(2));
+				reservation.setDebut(resultSet.getDate(3).toLocalDate());
+				reservation.setFin(resultSet.getDate(4).toLocalDate());
+
+			} else {
+				throw new DaoException("La réservation recherchée n'existe pas.");
+			}
+
+			return reservation;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException();
+		}
+
+	}
+
+	public int count() throws DaoException {
+		try (Connection connection = ConnectionManager.getConnection(); PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) FROM Reservation")) {
+
+			ResultSet resultSet = ps.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getInt(1);
+			} else {
+				throw new DaoException("Erreur lors du comptage des réservations.");
+			}
+
+		} catch (SQLException e) {
+			throw new DaoException("Erreur lors du comptage des réservations.");
+		}
+	}
+
+	public int edit(Reservation reservation, int id) throws DaoException {
+		try(Connection connection = ConnectionManager.getConnection()) {
+			PreparedStatement ps = connection.prepareStatement(EDIT_RESERVATION_QUERY);
+
+			ps.setInt(1, (reservation.getClient_id()));
+			ps.setInt(2, (reservation.getVehicle_id()));
+			ps.setDate(3, java.sql.Date.valueOf(reservation.getDebut()));
+			ps.setDate(4, java.sql.Date.valueOf(reservation.getFin()));
+			ps.setInt(5, id);
+
+			ps.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DaoException("Erreur lors de la modification de la réservation");
+		}
+		return reservation.getId();
+	}
+
  }

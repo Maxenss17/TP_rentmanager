@@ -106,6 +106,24 @@ public class ClientService {
 			throw new ServiceException("Impossible de vérifier l'adresse e-mail du client.");
 		}
 	}
+
+	public int count() throws ServiceException {
+		try {
+			return clientDao.count();
+		} catch (DaoException e) {
+			throw new ServiceException("Aucun client trouvé." + e.getMessage());
+		}
+	}
+
+	public int edit(Client client, int id) throws ServiceException {
+		try {
+			return clientDao.edit(client, id);
+		} catch (DaoException e) {
+			e.printStackTrace();
+			throw new ServiceException("Aucun client trouvé." + e.getMessage());
+		}
+	}
+
 }
 
 

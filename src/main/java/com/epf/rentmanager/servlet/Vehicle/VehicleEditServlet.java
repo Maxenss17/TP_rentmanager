@@ -1,5 +1,4 @@
 package com.epf.rentmanager.servlet.Vehicle;
-
 import com.epf.rentmanager.except.ServiceException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.VehicleService;
@@ -13,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/cars/create")
-public class VehicleCreateServlet extends HttpServlet {
+@WebServlet("/vehicles/edit")
+public class VehicleEditServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,11 +27,14 @@ public class VehicleCreateServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/edit.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         try {
+
+            int id = Integer.parseInt(request.getParameter("id"));
             String constructeur = request.getParameter("manufacturer");
             String modele = request.getParameter("modele");
             String nbPlacesString = request.getParameter("seats");
@@ -53,7 +55,7 @@ public class VehicleCreateServlet extends HttpServlet {
                 hasError = true;
 
             }  else {
-            request.setAttribute("modele", modele);
+                request.setAttribute("modele", modele);
             }
 
             if (nb_places < 2 || nb_places > 9) {
@@ -61,18 +63,18 @@ public class VehicleCreateServlet extends HttpServlet {
                 hasError = true;
 
             }  else {
-            request.setAttribute("seats", nbPlacesString);
+                request.setAttribute("seats", nb_places);
             }
 
             if (hasError) {
-                request.getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/vehicles/edit.jsp").forward(request, response);
             } else {
-                Vehicle vehicleCreated = new Vehicle(0, constructeur, modele, nb_places);
-                vehicleService.create(vehicleCreated);
+                Vehicle vehicleEdited = new Vehicle(0, constructeur, modele, nb_places);
+                vehicleService.edit(vehicleEdited, id);
                 response.sendRedirect("/rentmanager/cars");
             }
 
-        } catch (ServiceException | NumberFormatException e) {
+        } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
     }
