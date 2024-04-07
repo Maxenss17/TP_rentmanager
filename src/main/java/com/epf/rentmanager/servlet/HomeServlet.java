@@ -4,12 +4,9 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
-import com.epf.rentmanager.config.AppConfiguration;
 import com.epf.rentmanager.except.ServiceException;
 import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.annotation.WebServlet;

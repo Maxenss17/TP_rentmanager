@@ -25,42 +25,61 @@
                     <!-- Horizontal Form -->
                     <div class="box">
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" action="/rents/create">
+                        <form class="form-horizontal" method="post">
                             <div class="box-body">
-                                <div class="form-group">
-                                    <label for="car" class="col-sm-2 control-label">Voiture</label>
 
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="car" name="car">
-                                            <option value="1">Renault Clio</option>
-                                            <option value="2">Citroen C2</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="form-group">
                                     <label for="client" class="col-sm-2 control-label">Client</label>
 
                                     <div class="col-sm-10">
                                         <select class="form-control" id="client" name="client">
-                                            <option value="1">John Doe</option>
-                                            <option value="2">Jane Doe</option>
+                                            <c:forEach items="${clients}" var="client">
+                                                <option value="${client.id}">${client.id} ${client.nom} ${client.prenom}</option>
+                                            </c:forEach>
                                         </select>
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="car" class="col-sm-2 control-label">Voiture</label>
+
+                                    <div class="col-sm-10">
+                                        <select class="form-control" id="car" name="car">
+                                            <c:forEach items="${vehicles}" var="vehicle">
+                                                <option value="${vehicle.id}">${vehicle.id} ${vehicle.constructeur} ${vehicle.modele}</option>
+                                            </c:forEach>
+                                        </select>
+                                        <span id="vehicle_error" class="text-danger">${vehicle_error}</span>
+                                        <c:if test="${not empty vehicle_error}"><br></c:if>
+                                        <span id="vehicle_error_3" class="text-danger">${vehicle_error_3}</span>
+                                        <c:if test="${not empty vehicle_error_3}"><br></c:if>
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="begin" class="col-sm-2 control-label">Date de debut</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="begin" name="begin" required
-                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                        <input type="text" class="form-control" id="begin" name="begin" required>
+                                        <span id="begin_error" class="text-danger">${begin_error}</span>
+                                        <c:if test="${not empty begin_error}"><br></c:if>
+                                        <span id="begin_error_2" class="text-danger">${begin_error_2}</span>
+                                        <c:if test="${not empty begin_error_2}"><br></c:if>
+                                        <span id="begin_error_3" class="text-danger">${begin_error_3}</span>
+                                        <c:if test="${not empty begin_error_3}"><br></c:if>
                                     </div>
+
                                 </div>
                                 <div class="form-group">
                                     <label for="end" class="col-sm-2 control-label">Date de fin</label>
-
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="end" name="end" required
-                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                        <input type="text" class="form-control" id="end" name="end" required>
+                                        <span id="end_error" class="text-danger">${end_error}</span>
+                                        <c:if test="${not empty end_error}"><br></c:if>
+                                        <span id="end_error_2" class="text-danger">${end_error_2}</span>
+                                        <c:if test="${not empty end_error_2}"><br></c:if>
+                                        <span id="end_error_3" class="text-danger">${end_error_3}</span>
+                                        <c:if test="${not empty end_error_3}"><br></c:if>
                                     </div>
                                 </div>
                             </div>

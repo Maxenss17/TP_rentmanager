@@ -24,7 +24,6 @@ public class Reservation {
     public int getId() {
         return id;
     }
-
     public int getClient_id() {
         return client_id;
     }
@@ -42,11 +41,9 @@ public class Reservation {
     public void setId(int id) {
         this.id = id;
     }
-
     public void setClient_id(int client_id) {
         this.client_id = client_id;
     }
-
     public void setVehicle_id(int vehicle_id) {
         this.vehicle_id = vehicle_id;
     }

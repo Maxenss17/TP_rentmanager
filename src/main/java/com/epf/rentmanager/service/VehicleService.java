@@ -37,13 +37,6 @@ public class VehicleService {
 
 		try {
 
-			if (vehicle.getModele() == null || vehicle.getModele().isEmpty() ||
-					vehicle.getConstructeur() == null || vehicle.getConstructeur().isEmpty() ||
-					vehicle.getNb_places() < 2 || vehicle.getNb_places() > 9) {
-
-				throw new ServiceException("Modèle, constructeur ou nombre de places du véhicule invalide.");
-			}
-
 			return vehicleDao.create(vehicle);
 		} catch (DaoException e) {
 			e.printStackTrace();
