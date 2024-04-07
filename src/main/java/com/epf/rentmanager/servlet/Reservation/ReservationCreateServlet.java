@@ -48,7 +48,7 @@ public class ReservationCreateServlet extends HttpServlet {
             List<Client> clients = clientService.findAll();
             List<Vehicle> vehicles = vehicleService.findAll();
 
-            request.setAttribute("clients", clients);
+            request.setAttribute("users", clients);
             request.setAttribute("vehicles", vehicles);
 
             request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
@@ -62,15 +62,17 @@ public class ReservationCreateServlet extends HttpServlet {
 
         try {
 
-            int clientId = Integer.parseInt(request.getParameter("client"));
-            int vehicleId = Integer.parseInt(request.getParameter("car"));
+            int clientId = Integer.parseInt(request.getParameter("user"));
+            int vehicleId = Integer.parseInt(request.getParameter("vehicle"));
             LocalDate startDate = LocalDate.parse(request.getParameter("begin"), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
             LocalDate endDate = LocalDate.parse(request.getParameter("end"), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
             boolean hasError = false;
             boolean already_reserved = reservationService.isVehicleAlreadyReserved(vehicleId, startDate, endDate);
             boolean exceeds_seven =  ChronoUnit.DAYS.between(startDate, endDate) > 7;
-            boolean exceeds_thirty = reservationService.validateReservationTotalExceedsThirtyDays(vehicleId, startDate, endDate);
+
+            List<Reservation> reservations = reservationService.findAll();
+            boolean exceeds_thirty = reservationService.validateReservationTotalExceedsThirtyDays(reservations, startDate, endDate);
 
             if (already_reserved) {
 
@@ -99,7 +101,7 @@ public class ReservationCreateServlet extends HttpServlet {
             }
 
             if (hasError) {
-                request.setAttribute("clients", clientService.findAll());
+                request.setAttribute("users", clientService.findAll());
                 request.setAttribute("vehicles", vehicleService.findAll());
                 request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
 

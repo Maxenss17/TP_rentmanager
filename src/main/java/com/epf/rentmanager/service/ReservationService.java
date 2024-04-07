@@ -53,35 +53,16 @@ public class ReservationService {
         }
     }
 
-    public boolean validateReservationTotalExceedsThirtyDays(int reservationVehicleId, LocalDate dateDebut, LocalDate dateFin) throws ServiceException {
-        try {
-            List<Reservation> vehicleReservations = reservationDao.findResaByVehicleId(reservationVehicleId);
-            LocalDate currentDate = dateDebut;
+    //validateReservationTotalExceedsThirtyDays
 
-            long totalDaysReserved = 0;
+    public boolean validateReservationTotalExceedsThirtyDays(List<Reservation> reservations, LocalDate debut, LocalDate fin) throws ServiceException {
 
-            for (Reservation vehicleReservation : vehicleReservations) {
-                if (currentDate.isAfter(vehicleReservation.getFin().plusDays(1))) {
+        long reservedDays = debut.datesUntil(fin.plusDays(1))
+                .filter(date -> reservations.stream().anyMatch(reservation -> reservation.getDebut().compareTo(date) <= 0 && reservation.getFin().compareTo(date) >= 0))
+                .count();
+        return reservedDays > 31;
 
-                    totalDaysReserved++;
-                } else {
-
-                    totalDaysReserved = 0;
-                }
-
-                if (totalDaysReserved >= 30) {
-                    return true;
-                }
-
-                currentDate = currentDate.plusDays(1);
-            }
-
-            return false;
-        } catch (DaoException e) {
-            throw new ServiceException("Erreur lors de la vérification de la durée totale des réservations.");
-        }
     }
-
 
     public int delete(Reservation reservation) throws ServiceException {
         try {
